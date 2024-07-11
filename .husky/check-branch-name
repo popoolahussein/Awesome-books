@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+
+# Function to check if a string contains only alphanumeric characters and dashes
+is_valid_branch_name() {
+  [[ $1 =~ ^[a-zA-Z0-9-]+$ ]]
+}
+
+# Function to check if a branch name satisfies the length condition
+is_valid_branch_length() {
+  [[ ${#1} -le 30 ]]
+}
+
+# Function to display an error message and exit with a non-zero status
+exit_with_error() {
+  echo "❌ Error: $1"
+  exit 1
+}
+
+# Check if the commit is on a branch (not during an initial commit)
+if [[ $(git rev-parse --abbrev-ref HEAD) != "HEAD" ]]; then
+  branch_name=$(git symbolic-ref --short HEAD)
+
+  # Check branch name length
+  if ! is_valid_branch_length "$branch_name"; then
+    exit_with_error "❌ Branch name must be 30 characters or less."
+  fi
+
+  # Check branch name format
+  if ! is_valid_branch_name "$branch_name"; then
+    exit_with_error "❌ Branch name can only contain numbers, letters, and dashes (-)."
+  fi
+fi
+
+echo "✅ Branch check passes"

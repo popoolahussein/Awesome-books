@@ -1,0 +1,150 @@
+name: Checks
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+      - name: Run Prettier
+        run: |
+          yarn install
+          yarn format:check
+
+  css:
+    name: StyleLint
+    runs-on: ubuntu-latest
+    if: success() || failure()
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+      - name: Run StyleLint
+        run: |
+          yarn install
+          yarn stylelint:check
+
+  html:
+    name: HTML Hint
+    runs-on: ubuntu-latest
+    if: success() || failure()
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+      - name: Run HTML Hint
+        run: |
+          yarn install
+          yarn lint:html
+
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    if: success() || failure()
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+      - name: Run Eslint
+        run: |
+          yarn
+          yarn eslint:check
+
+  test:
+    name: Jest Test
+    runs-on: ubuntu-latest
+    if: success() || failure()
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+      - name: Run Tests
+        run: |
+          yarn
+          yarn test
+
+  accessibility-check:
+    name: Accessibility Check
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+      - name: Run Accessibility Check
+        id: accessibility
+        if: success() || failure()
+        run: |
+          yarn install
+          yarn build
+          yarn axe
+      - name: Create or Update Comment
+        if: success() || failure()
+        id: create-update-comment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            const existingComment = comments.find(comment => comment.body.match('## Accessibility Violations Check 🔎'));
+            console.log({ existingComment });
+            const fs = require('fs');
+            const commentBody = fs.readFileSync('accessibility_report.md', { encoding: 'utf8' });
+            const commentId = existingComment ? existingComment.id : null;
+            if (commentId) {
+              github.rest.issues.updateComment({
+                comment_id: commentId,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+            } else {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+            }

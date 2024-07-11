@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run branch check
+. "$(dirname -- "$0")/check-branch-name"
+
+yarn lint:check && yarn format:check

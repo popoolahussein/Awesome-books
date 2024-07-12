@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - development
   pull_request:
 
 jobs:
@@ -130,6 +130,3 @@ jobs:
                 body: commentBody
               });
             }
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              

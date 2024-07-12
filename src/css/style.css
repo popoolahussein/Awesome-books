@@ -3,3 +3,50 @@
   padding: 0.001px;
   box-sizing: border-box;
 }
+
+body {
+  padding-left: 10px;
+  padding-top: 1rem;
+  padding-bottom: 20px;
+  font-weight: 500;
+}
+
+.head {
+  word-break: break-all;
+  margin-bottom: 1.5rem;
+}
+
+.book {
+  display: grid;
+  flex-flow: row wrap;
+}
+
+.remove-btn {
+  max-width: fit-content;
+  padding: 1px 5px;
+  margin-top: 2px;
+}
+
+form {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+label {
+  color: transparent;
+}
+
+input {
+  width: 100%;
+  max-width: 160px;
+}
+
+.add {
+  max-width: fit-content;
+  padding: 1px 5px;
+}
+
+.line {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

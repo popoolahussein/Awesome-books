@@ -1,75 +1,81 @@
 /**
  * ? Function to create a new book object
  */
-function createBook(title, author) {
-  return { title, author };
-}
+const createBook = (title, author) => ({ title, author });
+
 /**
- * ? BookCollection object to manage the collection of books
- * */
-const bookCollection = {
-  books: JSON.parse(localStorage.getItem('books')) || [],
+ * ? Function to update localStorage with the current books
+ */
+const updateLocalStorage = (books) => {
+  localStorage.setItem('books', JSON.stringify(books));
+};
 
-  addBook(book) {
-    this.books.push(book);
-    this.updateLocalStorage();
-  },
+/**
+ * ? Function to add a new book to the collection
+ */
+const addBook = (books, book) => {
+  const updatedBooks = [...books, book];
+  updateLocalStorage(updatedBooks);
+  return updatedBooks;
+};
 
-  removeBook(title) {
-    this.books = this.books.filter((book) => book.title !== title);
-    this.updateLocalStorage();
-  },
+/**
+ * ? Function to remove a book from the collection
+ */
+const removeBook = (books, title) => {
+  const updatedBooks = books.filter((book) => book.title !== title);
+  updateLocalStorage(updatedBooks);
+  return updatedBooks;
+};
 
-  updateLocalStorage() {
-    localStorage.setItem('books', JSON.stringify(this.books));
-  },
+/**
+ * ? Function to display books
+ */
+const displayBooks = (books) => {
+  const bookList = document.getElementById('book-list');
+  bookList.innerHTML = '';
+  books.forEach((book) => {
+    const bookElement = document.createElement('div');
+    bookElement.classList.add('book');
+    bookElement.innerHTML = `
+      <p>${book.title}</p>
+      <p>${book.author}</p>
+      <button class="remove-btn" data-title="${book.title}">Remove</button>
+      <hr class="line">
+    `;
+    bookList.appendChild(bookElement);
+  });
 
-  displayBooks() {
-    const bookList = document.getElementById('book-list');
-    bookList.innerHTML = ''; // Clear the current list
-    this.books.forEach((book) => {
-      const bookElement = document.createElement('div');
-      bookElement.classList.add('book');
-      bookElement.innerHTML = `
-          <p>${book.title}</p>
-          <p>${book.author}</p>
-          <button class="remove-btn" data-title="${book.title}">Remove</button>
-          <hr class="line">
-        `;
-      bookList.appendChild(bookElement);
+  /**
+   * ? Add event listeners to all remove buttons
+   */
+  document.querySelectorAll('.remove-btn').forEach((button) => {
+    button.addEventListener('click', (e) => {
+      const title = e.target.getAttribute('data-title');
+      const updatedBooks = removeBook(books, title);
+      displayBooks(updatedBooks);
     });
-
-    /**
-     * ? Add event listeners to all remove buttons
-     */
-    document.querySelectorAll('.remove-btn').forEach((button) => {
-      button.addEventListener('click', (e) => {
-        const title = e.target.getAttribute('data-title');
-        bookCollection.removeBook(title);
-        bookCollection.displayBooks();
-      });
-    });
-  },
+  });
 };
 
 /**
  * ? Event listener for the form submission to add a book
  */
-
 document.getElementById('book-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const title = document.getElementById('title').value;
   const author = document.getElementById('author').value;
   const book = createBook(title, author);
-  bookCollection.addBook(book);
-  bookCollection.displayBooks();
-  e.target.reset(); // Reset the form fields
+  const books = JSON.parse(localStorage.getItem('books')) || [];
+  const updatedBooks = addBook(books, book);
+  displayBooks(updatedBooks);
+  e.target.reset();
 });
 
 /**
  * ? Display the books on page load
  */
-
 document.addEventListener('DOMContentLoaded', () => {
-  bookCollection.displayBooks();
+  const books = JSON.parse(localStorage.getItem('books')) || [];
+  displayBooks(books);
 });

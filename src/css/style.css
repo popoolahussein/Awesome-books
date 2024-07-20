@@ -5,14 +5,11 @@
 }
 
 body {
-  font-family: "Mitr", sans-serif;
+  font-family: Mitr, sans-serif;
   font-weight: 600;
-  /* font-stretch: extra-expanded; */
-  /* font-style: normal; */
   background-color: #f0f0f0;
   color: #333;
   padding: 16px 6px;
-  font-weight: lighter;
 }
 
 header {
@@ -22,12 +19,13 @@ header {
 }
 
 .head {
-  font-family: "Mitr", sans-serif;
+  font-family: Mitr, sans-serif;
   font-weight: 500;
   font-size: 2rem;
   color: #333;
   margin-bottom: 1.5rem;
 }
+
 .nb-line {
   justify-self: center;
   width: 100%;
@@ -42,6 +40,7 @@ header {
   border: 2px solid black;
   border-radius: 4px;
 }
+
 .new-books {
   display: grid;
   justify-content: center;
@@ -65,12 +64,13 @@ header {
 .book:first-child {
   padding-top: 3px;
 }
+
 .book:last-child {
   padding-bottom: 3px;
 }
 
 .book-p {
-  font-family: "Mitr", sans-serif;
+  font-family: Mitr, sans-serif;
   font-weight: 600;
   word-break: break-all;
   margin-top: 7px;
@@ -78,7 +78,7 @@ header {
 }
 
 .remove-btn {
-  font-family: "Mitr", sans-serif;
+  font-family: Mitr, sans-serif;
   padding: 0.001px 10px;
   cursor: pointer;
   word-break: break-all;
@@ -95,11 +95,11 @@ form {
   flex-flow: row wrap;
   margin-top: 20px;
   align-self: center;
-  padding: 0.001px 36px 0.001px 36px;
+  padding: 0.001px 36px;
 }
 
 .input-head {
-  font-family: "Mitr", sans-serif;
+  font-family: Mitr, sans-serif;
   font-weight: 500;
   font-size: 2rem;
   text-align: center;
@@ -124,10 +124,8 @@ input {
   padding: 4px 4px 7px;
   border: 2px solid black;
   word-break: break-all;
-  color: #000;
-  font-weight: bolder;
-  font-family: "Mitr", sans-serif;
-  font-size: 1rem;
+  color: black;
+  font-weight: bold;
 }
 
 .add {
@@ -135,10 +133,9 @@ input {
   padding: 3px 9px;
   cursor: pointer;
   border: 2px solid black;
-  font-weight: bold;
   align-self: flex-start;
   margin-left: auto;
-  font-family: "Mitr", sans-serif;
+  font-family: Mitr, sans-serif;
   font-size: 1rem;
   font-weight: 500;
 }

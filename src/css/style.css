@@ -5,48 +5,140 @@
 }
 
 body {
-  padding-left: 10px;
-  padding-top: 1rem;
-  padding-bottom: 20px;
-  font-weight: 500;
+  font-family: "Mitr", sans-serif;
+  font-weight: 600;
+  /* font-stretch: extra-expanded; */
+  /* font-style: normal; */
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 16px 6px;
+  font-weight: lighter;
+}
+
+header {
+  margin-bottom: 20px;
+  text-align: center;
+  word-break: break-all;
 }
 
 .head {
-  word-break: break-all;
+  font-family: "Mitr", sans-serif;
+  font-weight: 500;
+  font-size: 2rem;
+  color: #333;
   margin-bottom: 1.5rem;
 }
+.nb-line {
+  justify-self: center;
+  width: 100%;
+  max-width: 100px;
+  border: 1px solid black;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
-.book {
+#book-list {
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+.new-books {
   display: grid;
+  justify-content: center;
   flex-flow: row wrap;
 }
 
+.book {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.001px 10px 0.001px 5px;
+  background-color: #c9c9c9;
+  flex-flow: row wrap;
+  margin-top: 1.2px;
+  margin-bottom: 1.2px;
+}
+
+.book:nth-child(even) {
+  background-color: #fff;
+}
+
+.book:first-child {
+  padding-top: 3px;
+}
+.book:last-child {
+  padding-bottom: 3px;
+}
+
+.book-p {
+  font-family: "Mitr", sans-serif;
+  font-weight: 600;
+  word-break: break-all;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
 .remove-btn {
-  max-width: fit-content;
-  padding: 1px 5px;
-  margin-top: 2px;
+  font-family: "Mitr", sans-serif;
+  padding: 0.001px 10px;
+  cursor: pointer;
+  word-break: break-all;
+  border: 2px solid black;
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 form {
-  display: flex;
-  flex-flow: column wrap;
+  width: 100%;
+  max-width: 400px;
+  display: grid;
+  align-items: center;
+  flex-flow: row wrap;
+  margin-top: 20px;
+  align-self: center;
+  padding: 0.001px 36px 0.001px 36px;
 }
 
-label {
+.input-head {
+  font-family: "Mitr", sans-serif;
+  font-weight: 500;
+  font-size: 2rem;
+  text-align: center;
+}
+
+form label {
+  font-size: 0.5rem;
   color: transparent;
+  text-align: right;
+}
+
+.input-div {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 input {
   width: 100%;
-  max-width: 160px;
+  max-width: 400px;
+  padding: 4px 4px 7px;
+  border: 2px solid black;
+  word-break: break-all;
+  color: #000;
+  font-weight: bolder;
+  font-family: "Mitr", sans-serif;
+  font-size: 1rem;
 }
 
 .add {
-  max-width: fit-content;
-  padding: 1px 5px;
-}
-
-.line {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  width: fit-content;
+  padding: 3px 9px;
+  cursor: pointer;
+  border: 2px solid black;
+  font-weight: bold;
+  align-self: flex-start;
+  margin-left: auto;
+  font-family: "Mitr", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
 }

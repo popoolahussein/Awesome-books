@@ -27,10 +27,8 @@ export default class Library {
     const bookElement = document.createElement('div');
     bookElement.classList.add('book');
     bookElement.innerHTML = `
-      <p>${book.getTitle()}</p>
-      <p>${book.getAuthor()}</p>
+      <p class="book-p">"${book.getTitle()}" by ${book.getAuthor()}</p>
       <button class="remove-btn" data-title="${book.getTitle()}">Remove</button>
-      <hr class="line">
     `;
 
     bookElement.querySelector('.remove-btn').addEventListener('click', () => {

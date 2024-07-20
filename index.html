@@ -8,23 +8,36 @@
       name="description"
       content="Awesome Books is a simple web application that allows users to add, display, and remove books from a list. The app dynamically updates the DOM and uses localStorage to preserve data across sessions."
     />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Awesome Books</title>
     <link rel="stylesheet" href="/src/css/style.css" />
   </head>
   <body>
     <header>
-      <h1 class="head">Awesome Books</h1>
+      <h1 class="head">All awesome books</h1>
     </header>
     <main>
       <div id="book-list"></div>
-      <form id="book-form">
-        <input type="text" id="title" placeholder="Title" required />
-        <label for="title">title</label>
-        <input type="text" id="author" placeholder="Author" required />
-        <label for="author">Author</label>
-        <button class="add" type="submit">Add</button>
-      </form>
+      <div>
+        <div class="new-books">
+          <hr class="nb-line" />
+          <h2 class="input-head">Add a new book</h2>
+        </div>
+        <div class="input-div">
+          <form id="book-form">
+            <input type="text" id="title" placeholder="Title" required />
+            <label for="title">title</label>
+            <input type="text" id="author" placeholder="Author" required />
+            <label for="author">Author</label>
+            <button class="add" type="submit">Add</button>
+          </form>
+        </div>
+      </div>
     </main>
     <script src="/src/js/main.js" type="module"></script>
   </body>

@@ -86,8 +86,10 @@ export default class Library {
 
   static addBook(books, removedBooks, book) {
     const duplicateInActive = books.some((b) => b.title.toLowerCase() === book.title.toLowerCase());
-    const duplicateInRemoved = removedBooks.some((b) => b.title.toLowerCase() === book.title.toLowerCase());
-    
+    const duplicateInRemoved = removedBooks.some(
+      (b) => b.title.toLowerCase() === book.title.toLowerCase(),
+    );
+
     if (duplicateInActive || duplicateInRemoved) {
       showModal('message-modal', 'A book with this title already exists.');
       return books;
@@ -108,8 +110,10 @@ export default class Library {
 
   static restoreBook(removedBooks, books, id) {
     const bookToRestore = removedBooks.find((book) => book.id === id);
-    const duplicateInActive = books.some((b) => b.title.toLowerCase() === bookToRestore.title.toLowerCase());
-    
+    const duplicateInActive = books.some(
+      (b) => b.title.toLowerCase() === bookToRestore.title.toLowerCase(),
+    );
+
     if (duplicateInActive) {
       showModal('message-modal', 'A book with this title already exists in the active list.');
       return { updatedBooks: books, updatedRemovedBooks: removedBooks };

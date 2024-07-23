@@ -14,6 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="/src/images/favicon.ico" />
     <title>Awesome Books</title>
     <link rel="stylesheet" href="/src/css/style.css" />
   </head>
@@ -31,14 +32,39 @@
         <div class="input-div">
           <form id="book-form">
             <input type="text" id="title" placeholder="Title" required />
-            <label for="title">title</label>
+            <label for="title">Title</label>
             <input type="text" id="author" placeholder="Author" required />
             <label for="author">Author</label>
             <button class="add" type="submit">Add</button>
           </form>
         </div>
       </div>
+      <div>
+        <h2 class="removed-p">Removed Books</h2>
+        <div id="removed-book-list"></div>
+      </div>
+
+      <!--? Modal section -->
+      <div id="message-modal" class="modal" aria-hidden="true" role="dialog">
+        <div class="modal-content" role="document">
+          <button type="button" class="close" aria-label="Close">&times;</button>
+          <p id="message-modal-text"></p>
+        </div>
+      </div>
+      <div id="edit-modal" class="modal" aria-hidden="true" role="dialog">
+        <div class="modal-content" role="document">
+          <button type="button" class="close" aria-label="Close">&times;</button>
+          <h2>Edit Book</h2>
+          <form id="edit-form">
+            <label for="edit-title">Title</label>
+            <input type="text" id="edit-title" placeholder="Title" required />
+            <label for="edit-author">Author</label>
+            <input type="text" id="edit-author" placeholder="Author" required />
+            <button type="submit">Save Changes</button>
+          </form>
+        </div>
+      </div>
     </main>
-    <script src="/src/js/main.js" type="module"></script>
+    <script type="module" src="/src/js/main.js" defer></script>
   </body>
 </html>

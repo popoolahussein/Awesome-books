@@ -84,14 +84,17 @@ export default class Library {
     }
   }
 
-  static addBook(books, book) {
-    const duplicate = books.some((b) => b.title.toLowerCase() === book.title.toLowerCase());
-    if (duplicate) {
+  static addBook(books, removedBooks, book) {
+    const duplicateInActive = books.some((b) => b.title.toLowerCase() === book.title.toLowerCase());
+    const duplicateInRemoved = removedBooks.some((b) => b.title.toLowerCase() === book.title.toLowerCase());
+    
+    if (duplicateInActive || duplicateInRemoved) {
       showModal('message-modal', 'A book with this title already exists.');
       return books;
     }
+
     const updatedBooks = [...books, book];
-    Library.updateLocalStorage(updatedBooks);
+    Library.updateLocalStorage(updatedBooks, removedBooks);
     return updatedBooks;
   }
 
@@ -105,6 +108,13 @@ export default class Library {
 
   static restoreBook(removedBooks, books, id) {
     const bookToRestore = removedBooks.find((book) => book.id === id);
+    const duplicateInActive = books.some((b) => b.title.toLowerCase() === bookToRestore.title.toLowerCase());
+    
+    if (duplicateInActive) {
+      showModal('message-modal', 'A book with this title already exists in the active list.');
+      return { updatedBooks: books, updatedRemovedBooks: removedBooks };
+    }
+
     const updatedRemovedBooks = removedBooks.filter((book) => book.id !== id);
     const updatedBooks = [...books, bookToRestore];
     Library.updateLocalStorage(updatedBooks, updatedRemovedBooks);
@@ -205,7 +215,7 @@ export default class Library {
     const book = new Book(title, author);
     const books = Library.getBooksFromLocalStorage();
     const removedBooks = Library.getRemovedBooksFromLocalStorage();
-    const updatedBooks = Library.addBook(books, book);
+    const updatedBooks = Library.addBook(books, removedBooks, book);
     Library.displayBooks(updatedBooks, removedBooks);
     e.target.reset();
   }

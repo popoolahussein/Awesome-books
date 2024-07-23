@@ -1,4 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
+// eslint-disable-next-line import/no-unresolved
+import { v4 as uuidv4 } from 'https://cdn.skypack.dev/uuid';
 
 export default class Book {
   constructor(title, author, id = uuidv4()) {

@@ -13,9 +13,8 @@ body {
 }
 
 header {
-  margin-bottom: 20px;
-  text-align: center;
   word-break: break-all;
+  margin-bottom: 1.5rem;
 }
 
 .head {
@@ -23,7 +22,7 @@ header {
   font-weight: 500;
   font-size: 2rem;
   color: #333;
-  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .nb-line {
@@ -148,8 +147,50 @@ input {
   font-weight: 500;
 }
 
-.removed-p {
-  text-align: center;
+/**
+* ? Bin.html styles
+**/
+
+.main-bin {
+  display: grid;
+  flex-flow: row wrap;
+}
+
+.bin-a {
+  color: black;
+  text-decoration: none;
+}
+
+.bin-a:hover {
+  width: fit-content;
+  background: #333;
+  color: #fff;
+}
+
+.a-bin {
+  color: black;
+}
+
+.bin {
+  display: flex;
+  width: fit-content;
+}
+
+.bin:hover::after {
+  content: 'recycle bin';
+  font-size: x-small;
+  margin-top: 10px;
+}
+
+.delete-btn {
+  border: none;
+  background: none;
+}
+
+.delete-btn:hover::after {
+  content: 'delete permanently';
+  font-size: x-small;
+  margin-top: 10px;
 }
 
 /**

@@ -2,16 +2,19 @@ import Book from './book.js';
 
 const showModal = (modalId, message) => {
   const modal = document.getElementById(modalId);
+  if (!modal) return;
   const modalText = document.getElementById(`${modalId}-text`);
   if (modalText) modalText.textContent = message;
   modal.style.display = 'block';
   modal.setAttribute('aria-hidden', 'false');
 
   const closeButton = modal.querySelector('.close');
-  closeButton.onclick = () => {
-    modal.style.display = 'none';
-    modal.setAttribute('aria-hidden', 'true');
-  };
+  if (closeButton) {
+    closeButton.onclick = () => {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    };
+  }
 
   window.onclick = (event) => {
     if (event.target === modal) {
@@ -23,20 +26,24 @@ const showModal = (modalId, message) => {
 
 const showEditModal = (book, onSave) => {
   const modal = document.getElementById('edit-modal');
+  if (!modal) return;
   const titleInput = document.getElementById('edit-title');
   const authorInput = document.getElementById('edit-author');
-
-  titleInput.value = book.getTitle();
-  authorInput.value = book.getAuthor();
+  if (titleInput && authorInput) {
+    titleInput.value = book.getTitle();
+    authorInput.value = book.getAuthor();
+  }
 
   modal.style.display = 'block';
   modal.setAttribute('aria-hidden', 'false');
 
   const closeButton = modal.querySelector('.close');
-  closeButton.onclick = () => {
-    modal.style.display = 'none';
-    modal.setAttribute('aria-hidden', 'true');
-  };
+  if (closeButton) {
+    closeButton.onclick = () => {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    };
+  }
 
   window.onclick = (event) => {
     if (event.target === modal) {
@@ -46,17 +53,20 @@ const showEditModal = (book, onSave) => {
   };
 
   const form = document.getElementById('edit-form');
-  form.onsubmit = (e) => {
-    e.preventDefault();
-    const newTitle = titleInput.value;
-    const newAuthor = authorInput.value;
-    onSave(newTitle, newAuthor);
-    modal.style.display = 'none';
-    modal.setAttribute('aria-hidden', 'true');
-  };
+  if (form) {
+    form.onsubmit = (e) => {
+      e.preventDefault();
+      const newTitle = titleInput.value;
+      const newAuthor = authorInput.value;
+      onSave(newTitle, newAuthor);
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    };
+  }
 };
 
 export default class Library {
+  // Retrieve books from local storage
   static getBooksFromLocalStorage() {
     const booksData = JSON.parse(localStorage.getItem('books')) || [];
     return booksData.map((book) => new Book(book.title, book.author, book.id));
@@ -86,11 +96,8 @@ export default class Library {
 
   static addBook(books, removedBooks, book) {
     const duplicateInActive = books.some((b) => b.title.toLowerCase() === book.title.toLowerCase());
-    const duplicateInRemoved = removedBooks.some(
-      (b) => b.title.toLowerCase() === book.title.toLowerCase(),
-    );
 
-    if (duplicateInActive || duplicateInRemoved) {
+    if (duplicateInActive) {
       showModal('message-modal', 'A book with this title already exists.');
       return books;
     }
@@ -102,14 +109,24 @@ export default class Library {
 
   static removeBook(books, removedBooks, id) {
     const bookToRemove = books.find((book) => book.id === id);
+    if (!bookToRemove) return { updatedBooks: books, updatedRemovedBooks: removedBooks };
+
     const updatedBooks = books.filter((book) => book.id !== id);
     const updatedRemovedBooks = [...removedBooks, bookToRemove];
     Library.updateLocalStorage(updatedBooks, updatedRemovedBooks);
     return { updatedBooks, updatedRemovedBooks };
   }
 
+  static permanentlyDeleteBook(removedBooks, id) {
+    const updatedRemovedBooks = removedBooks.filter((book) => book.id !== id);
+    localStorage.setItem('removedBooks', JSON.stringify(updatedRemovedBooks));
+    return updatedRemovedBooks;
+  }
+
   static restoreBook(removedBooks, books, id) {
     const bookToRestore = removedBooks.find((book) => book.id === id);
+    if (!bookToRestore) return { updatedBooks: books, updatedRemovedBooks: removedBooks };
+
     const duplicateInActive = books.some(
       (b) => b.title.toLowerCase() === bookToRestore.title.toLowerCase(),
     );
@@ -171,7 +188,12 @@ export default class Library {
     bookElement.classList.add('book');
     bookElement.innerHTML = `
       <p class="book-p">"${book.getTitle()}" by ${book.getAuthor()}</p>
-      <button class="restore-btn" data-id="${book.id}">Restore</button>
+      <div class="manage-btn">
+        <button class="restore-btn" data-id="${book.id}">Restore</button>
+        <button class="delete-btn" data-id="${book.id}">
+          <span class="material-symbols-outlined">delete_forever</span>
+        </button>
+      </div>
     `;
 
     bookElement.querySelector('.restore-btn').addEventListener('click', () => {
@@ -183,33 +205,42 @@ export default class Library {
       displayBooks(updatedBooks, updatedRemovedBooks);
     });
 
+    bookElement.querySelector('.delete-btn').addEventListener('click', () => {
+      const updatedRemovedBooks = Library.permanentlyDeleteBook(removedBooks, book.id);
+      displayBooks(books, updatedRemovedBooks);
+    });
+
     return bookElement;
   }
 
   static displayBooks(books, removedBooks) {
     const bookList = document.getElementById('book-list');
-    bookList.innerHTML = '';
-    books.forEach((book) => {
-      const bookElement = Library.createBookElement(
-        book,
-        books,
-        removedBooks,
-        Library.displayBooks,
-      );
-      bookList.appendChild(bookElement);
-    });
+    if (bookList) {
+      bookList.innerHTML = '';
+      books.forEach((book) => {
+        const bookElement = Library.createBookElement(
+          book,
+          books,
+          removedBooks,
+          Library.displayBooks,
+        );
+        bookList.appendChild(bookElement);
+      });
+    }
 
     const removedBookList = document.getElementById('removed-book-list');
-    removedBookList.innerHTML = '';
-    removedBooks.forEach((book) => {
-      const bookElement = Library.createRemovedBookElement(
-        book,
-        books,
-        removedBooks,
-        Library.displayBooks,
-      );
-      removedBookList.appendChild(bookElement);
-    });
+    if (removedBookList) {
+      removedBookList.innerHTML = '';
+      removedBooks.forEach((book) => {
+        const bookElement = Library.createRemovedBookElement(
+          book,
+          books,
+          removedBooks,
+          Library.displayBooks,
+        );
+        removedBookList.appendChild(bookElement);
+      });
+    }
   }
 
   static handleFormSubmit(e) {
@@ -229,6 +260,9 @@ export default class Library {
     const removedBooks = Library.getRemovedBooksFromLocalStorage();
     Library.displayBooks(books, removedBooks);
 
-    document.getElementById('book-form').addEventListener('submit', Library.handleFormSubmit);
+    const bookForm = document.getElementById('book-form');
+    if (bookForm) {
+      bookForm.addEventListener('submit', Library.handleFormSubmit);
+    }
   }
 }

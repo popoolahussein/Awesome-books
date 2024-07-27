@@ -66,7 +66,6 @@ const showEditModal = (book, onSave) => {
 };
 
 export default class Library {
-  // Retrieve books from local storage
   static getBooksFromLocalStorage() {
     const booksData = JSON.parse(localStorage.getItem('books')) || [];
     return booksData.map((book) => new Book(book.title, book.author, book.id));

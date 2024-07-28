@@ -18,21 +18,28 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
     />
-    <link rel="icon" href="/src/images/favicon.ico" />
+    <link rel="icon" href="/src/favicon.ico" />
     <title>Awesome Books</title>
     <link rel="stylesheet" href="/src/css/style.css" />
   </head>
   <body>
     <header>
+      <div class="bin">
+        <button class="bin-button" id="bin-button" aria-label="Toggle Menu">
+          <span class="material-symbols-outlined"> delete </span>
+        </button>
+      </div>
+      <section class="bin-menu" id="menu">
+        <button class="bin-button close">&times;</button>
+        <nav class="bin-nav">
+          <h2 class="removed-p">Removed books</h2>
+          <div class="book-list" id="removed-book-list"></div>
+        </nav>
+      </section>
       <h1 class="head">All awesome books</h1>
     </header>
     <main>
-      <div id="book-list"></div>
-      <div class="bin">
-        <a class="a-bin" href="bin.html">
-          <span class="material-symbols-outlined"> delete </span>
-        </a>
-      </div>
+      <div class="book-list" id="book-list"></div>
       <div>
         <div class="new-books">
           <hr class="nb-line" />

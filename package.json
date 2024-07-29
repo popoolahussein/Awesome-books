@@ -24,7 +24,10 @@
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest",
     "prepare": "husky install"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/live-server": "^1.2.3",
+    "uuid": "^10.0.0"
+  },
   "devDependencies": {
     "@commitlint/cli": "^18.4.1",
     "@commitlint/config-conventional": "^18.4.1",

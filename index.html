@@ -3,13 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Awesome-books</title>
+    <meta name="author" content="Hussein Popoola" />
+    <meta
+      name="description"
+      content="Awesome Books is a simple web application that allows users to add, display, and remove books from a list. The app dynamically updates the DOM and uses localStorage to preserve data across sessions."
+    />
+    <title>Awesome Books</title>
+    <link rel="stylesheet" href="/src/css/style.css" />
   </head>
   <body>
+    <header>
+      <h1 class="head">Awesome Books</h1>
+    </header>
     <main>
-      <header>
-        <h1>Awesome-books</h1>
-      </header>
+      <div id="book-list"></div>
+      <form id="book-form">
+        <input type="text" id="title" placeholder="Title" required />
+        <label for="title">title</label>
+        <input type="text" id="author" placeholder="Author" required />
+        <label for="author">Author</label>
+        <button class="add" type="submit">Add</button>
+      </form>
     </main>
+    <script src="/src/js/main.js" type="module"></script>
   </body>
 </html>

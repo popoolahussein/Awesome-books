@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - development
   pull_request:
 
 jobs:
@@ -96,7 +96,6 @@ jobs:
         run: |
           yarn
           yarn test
-
   accessibility-check:
     name: Accessibility Check
     runs-on: ubuntu-latest

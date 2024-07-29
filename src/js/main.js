@@ -1,7 +1,3 @@
-const bookList = document.getElementById('book-list');
+import Library from './library.js';
 
-function add() {
-  bookList.innerHTML += 'added books!';
-}
-
-add();
+document.addEventListener('DOMContentLoaded', Library.init);

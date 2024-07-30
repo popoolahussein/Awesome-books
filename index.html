@@ -23,11 +23,29 @@
     <link rel="stylesheet" href="/src/css/style.css" />
   </head>
   <body>
-    <header>
-      <div class="bin">
-        <button class="bin-button" id="bin-button" aria-label="Toggle Menu">
-          <span class="material-symbols-outlined"> delete </span>
-        </button>
+    <header class="small">
+      <div class="top-nav">
+        <div>
+          <h3 class="nav-title">Awesome books</h3>
+        </div>
+        <nav>
+          <ul class="nav-ul">
+            <li><a href="#books-list" id="nav-books">Books List</a></li>
+            <li>|</li>
+            <li><a href="#add-book" id="nav-add">Add Book</a></li>
+            <li>|</li>
+            <li><a href="#contact" id="nav-contact">Contact Info</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="top-content">
+        <div class="bin">
+          <button class="bin-button" id="bin-button" aria-label="Toggle Menu">
+            <span class="material-symbols-outlined"> delete </span>
+          </button>
+        </div>
+        <div class="col-md-5"></div>
+        <div><span class="date-display"></span></div>
       </div>
       <section class="bin-menu" id="menu">
         <button class="bin-button close">&times;</button>
@@ -36,13 +54,15 @@
           <div class="book-list" id="removed-book-list"></div>
         </nav>
       </section>
-      <h1 class="head">All awesome books</h1>
     </header>
     <main>
-      <div class="book-list" id="book-list"></div>
-      <div>
+      <section id="books-list">
+        <h1 class="head">All awesome books</h1>
+        <div class="book-list" id="book-list"></div>
+      </section>
+
+      <section class="display" id="add-book">
         <div class="new-books">
-          <hr class="nb-line" />
           <h2 class="input-head">Add a new book</h2>
         </div>
         <div class="input-div">
@@ -54,10 +74,22 @@
             <button class="add" type="submit">Add</button>
           </form>
         </div>
-      </div>
+      </section>
+
+      <section class="contact display" id="contact">
+        <h2 class="contact-h">Contact Information</h2>
+        <div class="contact-p">
+          <p>Do have any question or you jus want to say "Hello"</p>
+          <p>You can reach out us at:</p>
+        </div>
+        <ul class="contact-list">
+          <li>Email: info@example.com</li>
+          <li>Phone: +1234567890</li>
+          <li>Address: 123 Book Street, Library City</li>
+        </ul>
+      </section>
 
       <!--? Modal section -->
-
       <div id="message-modal" class="modal" aria-hidden="true" role="dialog">
         <div class="modal-content" role="document">
           <button type="button" class="close" aria-label="Close">&times;</button>
@@ -78,6 +110,13 @@
         </div>
       </div>
     </main>
+
+    <footer>
+      <section class="footer small">
+        <div class="foot">copyright</div>
+      </section>
+    </footer>
+
     <script type="module" src="/src/js/main.js"></script>
   </body>
 </html>

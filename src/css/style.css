@@ -9,12 +9,52 @@ body {
   font-weight: 600;
   background-color: #f0f0f0;
   color: #333;
+}
+
+header,
+main {
   padding: 16px 6px;
 }
 
 header {
   word-break: break-all;
   margin-bottom: 1.5rem;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid black;
+  border-radius: 5px;
+  align-items: center;
+  padding: 5px;
+  flex-flow: row wrap;
+  word-break: break-all;
+  gap: 16px;
+}
+
+.nav-title {
+  word-break: break-all;
+}
+
+.nav-ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: 5px;
+  flex-flow: row wrap;
+}
+
+.nav-ul a {
+  text-decoration: none;
+  color: #333;
+}
+
+.top-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row wrap;
 }
 
 /**
@@ -75,8 +115,9 @@ header {
 }
 
 .bin {
-  display: flex;
-  width: fit-content;
+  margin-top: 6.6px;
+  background-color: none;
+  border: none;
 }
 
 .bin:hover::after {
@@ -105,6 +146,8 @@ header {
   font-size: 2rem;
   color: #333;
   text-align: center;
+  margin-bottom: 1.5rem;
+  word-break: break-all;
 }
 
 .nb-line {
@@ -230,6 +273,34 @@ input {
   font-weight: 500;
 }
 
+.display {
+  display: none;
+}
+
+/**
+* ? contact section styles
+**/
+
+.contact {
+  flex-flow: row wrap;
+  gap: 1rem;
+  font-weight: 500;
+}
+
+.contact-list,
+.contact-p {
+  display: grid;
+  flex-flow: column wrap;
+  text-align: flex-start;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-h {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
 /**
 *? modal styles.css
 */
@@ -269,4 +340,36 @@ input {
 .close:focus {
   color: black;
   text-decoration: none;
+}
+
+/**
+*? footer styles
+**/
+
+footer {
+  display: grid;
+  margin-top: 1rem;
+}
+
+.footer {
+  display: flex;
+  border: 2px black solid;
+  word-break: break-all;
+  bottom: 0;
+  position: absolute;
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+  width: 98.95%;
+  justify-self: center;
+  font-weight: 500;
+}
+
+.foot {
+  padding-left: 10px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+.small {
+  font-size: x-small;
 }
